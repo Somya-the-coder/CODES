@@ -1,0 +1,77 @@
+//QUESTION:-Check if any permutation of a large number is divisible by 8
+/*
+Given an integer string, create all integer permutations of its digits. Determine if there is a permutation whose integer value is evenly divisible by 8, 1.e. (permutation value) mad 8=0.
+For example, the possible permutations of 123 are p- (123, 132, 213, 231, 312, 321). Of these values, p(4)-312 is divisible by 8 because 312 mod 8-0.
+Function Description
+Complete the function checkDivisibility in the editor below. The function must return an array of result strings, either YES or NO, where each result[i] denotes whether a permutation of arr[i) is divisible by &
+checkDivisibility has the following parameter(s): anfarr(0)...arrin-1: an array of integer strings
+
+Sample Input 0
+2//no. of inputs
+61
+75
+Sample Output 0
+YES
+NO
+NOTE: STRING BUILDER IS TAKEN TO REDUCE  TIME COMPLEXITY(INT.PARSEINT TYPES)
+*/
+
+//code:-
+import java.util.*;
+class codes
+{
+    public static boolean perm(String n, int l)
+    {
+        if(l<3)
+        {
+            if(Integer.parseInt(n)%8==0)//String to Integer
+                return true;
+            n=new String((new StringBuilder()).append(n).reverse());
+            if(Integer.parseInt(n)%8==0)//its reverse(2 / 1 digit no.)
+                return true;
+            return false;
+        }
+
+        int hash[]=new int[10];
+        for(int i=0;i<l;i++)
+            hash[n.charAt(i)-'0']++;
+
+        for(int i=104;i<1000;i+=8)
+        {
+            int dup=i;//104
+
+            int freq[]=new int[10];
+            freq[dup%10]++;//4
+            dup/=10;
+            freq[dup%10]++;//0
+            dup/=10;
+            freq[dup%10]++;//1
+
+            dup=i;
+            if(freq[dup%10]>hash[dup%10])
+            continue;
+            dup=dup%10;
+            if(freq[dup%10]>hash[dup%10])
+            continue;
+            dup=dup%10;
+            if(freq[dup%10]>hash[dup%10])
+            continue;
+
+            return true;
+
+        }
+        return false;
+    }
+    public static void main(String args[])
+    {
+        String number="123456789";
+        int l=number.length();
+        if(perm(number,l))
+            System.out.println("YES");
+        else
+            System.out.println("NO");
+    }
+}
+
+
+
