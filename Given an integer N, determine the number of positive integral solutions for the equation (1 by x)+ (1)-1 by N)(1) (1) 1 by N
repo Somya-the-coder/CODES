@@ -1,0 +1,26 @@
+import java.util.*;
+class codes{
+    public static int findSolutions(int N)
+    {
+        final int MOD=1000007;
+        int count=0;
+        long N2=(long)N*N;
+        
+        for(int a=1;a<=Math.sqrt(N2);a++)
+        {
+            if(N2%a==0)
+            {
+                long b=N2/a;
+
+                if(a+N>0 && b+N>0){
+                    count+=(a==b)?1:2;//2,2...add once as single digit else 1,4 add 2 nos.
+                }
+            }
+        }
+        return count%MOD;
+    }
+    public static void main(String args[]){
+        int N=2;
+        System.out.println(findSolutions(N))//expected o/p=3...(n^=4) so pairs that mul to 4 are 1,4...4,1...2,2
+    }
+}
