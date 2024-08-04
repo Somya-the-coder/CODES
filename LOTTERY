@@ -1,0 +1,46 @@
+import java.util.HashMap;
+import java.util.Map;
+
+public class codes {
+
+    public static long[] waysToChooseSum(long lowLimit, long highLimit) {
+        Map<Integer, Integer> digitSumCount = new HashMap<>();
+        int maxFrequency = 0;
+
+        // Calculate digit sums for each number in the range
+        for (long i = lowLimit; i <= highLimit; i++) {
+            int digitSum = calculateDigitSum(i);
+
+            digitSumCount.put(digitSum, digitSumCount.getOrDefault(digitSum, 0) + 1);
+            maxFrequency = Math.max(maxFrequency, digitSumCount.get(digitSum));
+        }
+
+        // Count how many sums have the maxFrequency
+        long maxFrequencyCount = 0;
+        for (int count : digitSumCount.values()) {
+            if (count == maxFrequency) {
+                maxFrequencyCount++;
+            }
+        }
+
+        return new long[]{maxFrequencyCount, maxFrequency};
+    }
+
+    private static int calculateDigitSum(long num) {
+        int sum = 0;
+        while (num > 0) {
+            sum += num % 10;
+            num /= 10;
+        }
+        return sum;
+    }
+
+    public static void main(String[] args) {
+        long lowLimit = 1;
+        long highLimit = 10;
+
+        long[] result = waysToChooseSum(lowLimit, highLimit);
+        System.out.println("Number of ways to choose sum: " + result[0]);
+        System.out.println("Number of participants: " + result[1]);
+    }
+}
