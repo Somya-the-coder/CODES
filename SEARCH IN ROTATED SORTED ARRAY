@@ -1,0 +1,39 @@
+//rem we're doing bin search=O(log n) as linear search its O(n)......GREAT APPROACH DUDE!
+
+class Solution {
+    public int search(int[] nums, int target) {
+        //Arrays.sort(nums);-- u can't else o/p index will come as per sorted array
+        int f=0,l=nums.length-1;
+        while(f<=l)
+        {   //finding min elt which has sorted array on either side(prev qs)
+            int mid=(f+l)/2;
+            if(nums[mid]>nums[nums.length-1]) //means rotated so smaller elts on right
+                f=mid+1;
+            else
+                l=mid-1;
+        }
+            //f = min element's index;
+    int s=bin_search(0,f,nums,target);
+    int s1=bin_search(f,nums.length-1,nums,target);
+    if(s !=-1)
+    return s;
+    else if(s1!=-1)
+    return s1;
+    else
+    return -1;
+}
+int bin_search(int f,int l,int nums[],int target)
+{
+    while(f<=l)
+    {
+        int mid=(f+l)/2;
+        if(nums[mid]<target)
+        f=mid+1;
+        else if(nums[mid]>target)
+        l=mid-1;
+        else//if got the target
+        return mid;
+    }
+    return -1;
+}
+}
