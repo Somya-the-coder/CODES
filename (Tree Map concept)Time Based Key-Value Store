@@ -1,0 +1,50 @@
+//We'll add the value and timestamp as a pair to the list
+//associated with the key in our dictionary.
+
+//In hashmap values can be a list!!
+class TimeMap {
+//TreeMap is used because it keeps the keys (timestamps) in sorted order, 
+//which helps in efficiently 
+//finding the closest earlier timestamp.
+
+private HashMap<String, TreeMap<Integer,String>>map;
+    public TimeMap() {
+        //when timemap created->create its hashmaap
+        map=new HashMap<String, TreeMap<Integer,String>>();//could have been attached with abv line 10
+    }
+    
+    public void set(String key, String value, int timestamp) {
+        if(map.get(key) == null)
+            map.put(key, new TreeMap<Integer,String>());
+        map.get(key).put(timestamp,value);
+    }
+    
+    public String get(String key, int timestamp) {
+
+        //1. if not, return null
+        if(map.get(key) == null)
+            return "";
+    
+        //2.if not null and exact timestamp present, return val
+        if((map.get(key).get(timestamp)!= null))
+        return map.get(key).get(timestamp);
+
+        // otherwise, see if an earlier timestamp exists and return its value (or empty string if none exists)
+        else{
+                Integer closest = map.get(key).lowerKey(timestamp);//stricly grt val returns the lowerkey() method of TreeMap
+                if(closest == null){
+                    return "";
+                }
+                else{
+                    return map.get(key).get(closest);
+                }
+            }
+    }
+}
+
+/**
+ * Your TimeMap object will be instantiated and called as such:
+ * TimeMap obj = new TimeMap();
+ * obj.set(key,value,timestamp);
+ * String param_2 = obj.get(key,timestamp);
+ */
