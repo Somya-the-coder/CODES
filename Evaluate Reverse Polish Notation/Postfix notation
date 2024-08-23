@@ -1,0 +1,37 @@
+//Reverse Polish Notation is same as postfix notation- here operators precede their operands. 
+/*RPN or postfix notation is often used in "STACK-BASED ALGORITHMS" to evaluate expressions
+because it "eliminates the need for parentheses" and makes it "straightforward" to implement 
+using a stack.*/ 
+class Solution {
+    public int evalRPN(String[] tokens) {
+        //inputs are array not(stack).... u use stack(as array or any data structure) concept to solve this problem
+        //stack class used so that push, pop , peek methods can be directoly used
+        //i/p array has all elts as characters
+        Stack<Integer> stk=new Stack<>();//gives pop,push(else u need to write these functions using top variable i.e. top++,top--)
+        //for(char ch:tokens)//for each loop of array---Line 11: error: incompatible types: String cannot be converted to char
+
+        for(String ch:tokens)
+        {
+            if(ch.equals("+"))
+                stk.push(stk.pop()+stk.pop());
+            else if(ch.equals("-"))
+            {
+                int first=stk.pop();
+                int second=stk.pop();
+                stk.push(second-first);
+            }
+            else if(ch.equals("*"))
+                stk.push(stk.pop()*stk.pop());
+            else if(ch.equals("/"))
+            {
+                int first=stk.pop();
+                int second=stk.pop();
+                stk.push(second/first);
+            }
+
+            else //when ch is a number 
+                stk.push(Integer.parseInt(ch));
+        }
+         return(stk.pop());
+    }
+}
