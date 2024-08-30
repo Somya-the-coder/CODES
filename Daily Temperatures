@@ -1,0 +1,37 @@
+//bruteforce and stack approach
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+
+ int[] result = new int[temperatures.length];
+        Stack<int[]> stack = new Stack<>(); // stores pair of (temperature, index)
+
+        for (int i = 0; i < temperatures.length; i++) {
+            int temp = temperatures[i];
+            while (!stack.isEmpty() && temp > stack.peek()[0]) {
+                int[] pop = stack.pop();
+                result[pop[1]] = i - pop[1];
+            }
+            stack.push(new int[]{temp, i});
+        }
+
+        return result;
+
+
+        //BRUTEFORCE
+//         int arr[]=new int[temperatures.length]; int g=0;
+//         for(int i=0;i<temperatures.length;i++)
+//         {
+//             int c=0;
+//             for(int j=i+1;j<temperatures.length;j++)
+//             {
+//                 c++;
+//                 if(temperatures[j]>temperatures[i])
+//                 {
+//                     arr[i]=c;
+//                     break;
+//                 }
+//             }
+//         }
+// return arr;//by default 0 all elts
+    }
+}
