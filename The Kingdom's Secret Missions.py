@@ -1,3 +1,4 @@
+#DFS
 class Solution:
     def dfs(self, node, adj, vis, teams, alone):
         # Mark the node as visited
