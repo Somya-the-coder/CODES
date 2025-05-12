@@ -11,7 +11,7 @@ private HashMap<String, TreeMap<Integer,String>>map;
     public TimeMap() {
         //when timemap created->create its hashmaap
         map=new HashMap<String, TreeMap<Integer,String>>();//could have been attached with abv line 10
-    }
+    } 
     
     public void set(String key, String value, int timestamp) {
         if(map.get(key) == null)
